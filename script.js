@@ -8,18 +8,22 @@ function generatePassword()
 var len;
 var arraySel;
 var password;
-var randomNum;
+var randomCeil;
 var currentChar;
 var includeLower;
 var includeUpper;
+var lowerArrayno;
+var upperArrayno;
 var includeSpecial;
 var includeNumeric;
+var numericArrayno;
+var specialArrayno;
 var numericArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9",];
 var specialArray = ['!', '#', '$', '%', '&', '*', '+', '-', '_', ':', ';', '=', '<', '>'];
 var uppercaseArray = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 var lowercaseArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-    password = "NO PASSWORD GENERATED";
+    password = "";
 
     do
     {
@@ -34,127 +38,169 @@ var lowercaseArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'
     {
         do
         {
-            includeUpper = prompt("Include uppercase Y/N?");
-            if (includeUpper != null)
-                includeUpper = includeUpper.toUpperCase();
-
-            if (includeUpper != "Y" && includeUpper != "N" && includeUpper != null)
-                window.alert("Please type a Y or a N");
-        }
-        while (includeUpper != "N" && includeUpper != "Y" && includeUpper != null);
-
-        if (includeUpper != null)
-        {
+            randomCeil = 0;                                              // Counts the different types of chars we will use (upper lower, psecial...)
             do
             {
-                includeLower = prompt("Include lowercase Y/N?");
-                if (includeLower != null)
-                    includeLower = includeLower.toUpperCase();
+                includeUpper = prompt("Include uppercase Y/N?");
+                if (includeUpper != null)
+                    includeUpper = includeUpper.toUpperCase();
 
-                if (includeLower != "Y" && includeLower != "N" && includeLower != null)
+                if (includeUpper != "Y" && includeUpper != "N" && includeUpper != null)
                     window.alert("Please type a Y or a N");
-            }
-            while (includeLower != "N" && includeLower != "Y" && includeLower != null);
 
-            if (includeLower != null)
+                if (includeUpper == "Y")
+                {
+                    upperArrayno = randomCeil;                           // If this type of char selected, we want this array to be selected
+                    randomCeil++;
+                }
+                else
+                    upperArrayno = -1;                                   // If this type of char not selected, we do not want to use that array
+            }
+            while (includeUpper != "N" && includeUpper != "Y" && includeUpper != null);
+
+            if (includeUpper != null)
             {
                 do
                 {
-                    includeNumeric = prompt("Include numeric Y/N?");
-                    if (includeNumeric != null)
-                        includeNumeric = includeNumeric.toUpperCase();
+                    includeLower = prompt("Include lowercase Y/N?");
+                    if (includeLower != null)
+                        includeLower = includeLower.toUpperCase();
 
-                    if (includeNumeric != "Y" && includeNumeric != "N" && includeNumeric != null)
+                    if (includeLower != "Y" && includeLower != "N" && includeLower != null)
                         window.alert("Please type a Y or a N");
-                }
-                while (includeNumeric != "N" && includeNumeric != "Y" && includeNumeric != null);
 
-                if (includeNumeric != null)
+                    if (includeLower == "Y")
+                    {
+                        lowerArrayno = randomCeil;                       // If this type of char selected, we want this array to be selected
+                        randomCeil++;
+                    }
+                    else
+                        lowerArrayno = -1;                               // If this type of char not selected, we do not want to use that array
+                }
+                while (includeLower != "N" && includeLower != "Y" && includeLower != null);
+
+                if (includeLower != null)
                 {
                     do
                     {
-                        includeSpecial = prompt("Include special chars Y/N?");
-                        if (includeSpecial != null)
-                            includeSpecial = includeSpecial.toUpperCase();
+                        includeNumeric = prompt("Include numeric Y/N?");
+                        if (includeNumeric != null)
+                            includeNumeric = includeNumeric.toUpperCase();
 
-                        if (includeSpecial != "Y" && includeSpecial != "N" && includeSpecial != null)
+                        if (includeNumeric != "Y" && includeNumeric != "N" && includeNumeric != null)
                             window.alert("Please type a Y or a N");
-                    }
-                    while (includeSpecial != "N" && includeSpecial != "Y" && includeSpecial != null);
 
-                    if (includeSpecial != null)
-                    {
-                        password = "";
-                        for (i = 0; i < len; i++)
+                        if (includeNumeric == "Y")
                         {
-                            arraySel = Math.random() * 4;
-                            arraySel = Math.floor(arraySel);
+                            numericArrayno = randomCeil;                 // If this type of char selected, we want this array to be selected
+                            randomCeil++;
+                        }
+                        else
+                            numericArrayno = -1;                         // If this type of char not selected, we do not want to use that array
+                    }
+                    while (includeNumeric != "N" && includeNumeric != "Y" && includeNumeric != null);
 
-                            if (arraySel === 0)
+                    if (includeNumeric != null)
+                    {
+                        do
+                        {
+                            includeSpecial = prompt("Include special chars Y/N?");
+                            if (includeSpecial != null)
+                                includeSpecial = includeSpecial.toUpperCase();
+
+                            if (includeSpecial != "Y" && includeSpecial != "N" && includeSpecial != null)
+                                window.alert("Please type a Y or a N");
+
+                            if (includeSpecial == "Y")
                             {
-                                if (includeUpper === "Y")
-                                {
-                                    charSel = Math.random() * 26;
-                                    charSel = Math.floor(charSel);
-                                    currentChar = uppercaseArray[charSel];
-                                }
-                                else
-                                    arraySel++;
+                                specialArrayno = randomCeil;             // If this type of char selected, we want this array to be selected
+                                randomCeil++;
                             }
+                            else
+                                specialArrayno = -1;                     // If this type of char not selected, we do not want to use that array
+                        }
+                        while (includeSpecial != "N" && includeSpecial != "Y" && includeSpecial != null);
 
-                            if (arraySel === 1)
+                        if (includeSpecial != null)
+                        {
+                            if (randomCeil > 0)                          // At least one type of char has been selected
                             {
-                                if (includeLower === "Y")
+                                password = "";
+                                for (i = 0; i < len; i++)
                                 {
-                                    charSel = Math.random() * 26;
-                                    charSel = Math.floor(charSel);
-                                    currentChar = lowercaseArray[charSel];
-                                }
-                                else
-                                    arraySel++;
-                            }
+                                    arraySel = Math.random() * randomCeil;                    // Ceiling of the randon is the number of types of chars selected
+                                    arraySel = Math.floor(arraySel);
 
-                            if (arraySel === 2)
-                            {
-                                if (includeSpecial === "Y")
-                                {
-                                    charSel = Math.random() * 14;
-                                    charSel = Math.floor(charSel);
-                                    currentChar = specialArray[charSel];
-                                }
-                                else
-                                    arraySel++;
-                            }
+                                    if (arraySel === upperArrayno)
+                                    {
+                                        if (includeUpper === "Y")
+                                        {
+                                            charSel = Math.random() * 26;                     // Number of chars in this array
+                                            charSel = Math.floor(charSel);
+                                            currentChar = uppercaseArray[charSel];
+                                        }
+                                        else
+                                            arraySel++;
+                                    }
 
-                            if (arraySel === 3)
-                            {
-                                if (includeNumeric === "Y")
-                                {
-                                    charSel = Math.random() * 10;
-                                    charSel = Math.floor(charSel);
-                                    currentChar = numericArray[charSel];
-                                }
-                                else
-                                    arraySel++;
-                            }
+                                    if (arraySel === lowerArrayno)
+                                    {
+                                        if (includeLower === "Y")
+                                        {
+                                            charSel = Math.random() * 26;                     // Number of chars in this array
+                                            charSel = Math.floor(charSel);
+                                            currentChar = lowercaseArray[charSel];
+                                        }
+                                        else
+                                            arraySel++;
+                                    }
 
-                            password = password + currentChar;
+                                    if (arraySel === specialArrayno)
+                                    {
+                                        if (includeSpecial === "Y")
+                                        {
+                                            charSel = Math.random() * 14;                     // Number of chars in this array
+                                            charSel = Math.floor(charSel);
+                                            currentChar = specialArray[charSel];
+                                        }
+                                        else
+                                            arraySel++;
+                                    }
+
+                                    if (arraySel === numericArrayno)
+                                    {
+                                        if (includeNumeric === "Y")
+                                        {
+                                            charSel = Math.random() * 10;                     // Number of chars in this array
+                                            charSel = Math.floor(charSel);
+                                            currentChar = numericArray[charSel];
+                                        }
+                                    }
+
+                                    password = password + currentChar;
+                                }
+                            }
+                            else
+                                window.alert("You must choose at least one type of character or cancel");
                         }
                     }
                 }
             }
-        }
+        } while (password === "");
     }
 
     return password;
 }
 
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+var password
+var passwordText;
 
-  passwordText.value = password;
+    passwordText = document.querySelector("#password");
 
+    password = generatePassword();
+
+    passwordText.value = password;
 }
 
 // Add event listener to generate button
